@@ -11,8 +11,8 @@ export async function GET(request: NextRequest) {
   }
   try {
     const client = await clientPromise;
-    const db = client.db("sample_mflix");
-    const collection = db.collection("users");
+    const db = client.db("jira-users");
+    const collection = db.collection("users-collection");
     const data: unknown = await collection.find({}).toArray();
 
     return NextResponse.json(data);
