@@ -12,13 +12,19 @@ export async function POST(req: NextRequest) {
       const db = client.db("jira-users");
       const collection = db.collection("user-collection");
       const userToadded = {
-        email: body.data.email_addresses[0].email_address,
         _id: body.data.id,
+        email: body.data.email_addresses[0].email_address,
         first_name: body.data.first_name,
         last_name: body.data.last_name,
         profile_image_url: body.data.profile_image_url,
       };
-      await collection.insertOne(userToadded);
+      // only add if user is not already added
+      const existingUser = await collection.findOne({
+        _id: body.data.id,
+      });
+      if (!existingUser) {
+        await collection.insertOne(userToadded);
+      }
     }
     if (body.type === "user.deleted") {
       const client = await clientPromise;

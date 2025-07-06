@@ -2,6 +2,7 @@
 
 import clientPromise from "@/lib/mongodb";
 import { getAuth } from "@clerk/nextjs/server";
+import { ObjectId } from "mongodb";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -12,9 +13,8 @@ export async function GET(request: NextRequest) {
   try {
     const client = await clientPromise;
     const db = client.db("jira-users");
-    const collection = db.collection("users-collection");
+    const collection = db.collection("user-collection");
     const data: unknown = await collection.find({}).toArray();
-
     return NextResponse.json(data);
   } catch (e) {
     console.error(e);
