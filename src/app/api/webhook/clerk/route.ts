@@ -6,6 +6,11 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log(body.data.email_addresses[0].email_address);
+    console.log(body.data.id);
+    console.log(body.data.first_name);
+    console.log(body.data.last_name);
+    console.log(body.data.profile_image_url);
     // saving it in a mongodb if user is created
     if (body.type === "user.created") {
       const client = await clientPromise;
@@ -18,6 +23,7 @@ export async function POST(req: NextRequest) {
         last_name: body.data.last_name,
         profile_image_url: body.data.profile_image_url,
       };
+      console.log(userToadded);
       await collection.insertOne(userToadded);
     }
 
