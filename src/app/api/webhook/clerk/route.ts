@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       const collection = db.collection("user-collection");
       await collection.deleteOne({ _id: body.data.id });
     }
-
+    console.log("Webhook received:", body);
     // Do something with the webhook data
     // For example, handle user.created event
 
