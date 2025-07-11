@@ -2,7 +2,6 @@
 
 import clientPromise from "@/lib/mongodb";
 import { getAuth } from "@clerk/nextjs/server";
-import { ObjectId } from "mongodb";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

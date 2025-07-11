@@ -5,6 +5,9 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import UserContextWrapper from "@/context/UserContextWrapper";
+import ProjectContextWrapper from "@/context/ProjectContextWrapper";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "@/utils/createTheme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +35,17 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <UserContextWrapper>
-            <Header />
-            <main className="flex-1 min-h-[90vh] max-xl:w-[90vw] m-auto xl:w-[75vw] py-5">
-              {children}
-            </main>
-            <Footer />
-          </UserContextWrapper>
+          <ThemeProvider theme={theme}>
+            <UserContextWrapper>
+              <ProjectContextWrapper>
+                <Header />
+                <main className="flex-1 min-h-[90vh] max-xl:w-[90vw] m-auto xl:w-[75vw] py-5">
+                  {children}
+                </main>
+                <Footer />
+              </ProjectContextWrapper>
+            </UserContextWrapper>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

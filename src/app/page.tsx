@@ -1,5 +1,3 @@
-import DashboardCard from "@/components/DashboardCard";
-
 export default function Home() {
-  return <DashboardCard />;
+  return <div>Homepage</div>;
 }
