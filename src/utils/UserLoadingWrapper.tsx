@@ -5,8 +5,9 @@ import React from "react";
 
 export default function UserLoadingWrapper({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const { isLoaded } = useUser();
-  if (!isLoaded) return <p className="text-3xl font-bold">Loading...</p>;
+  fallback,
+}: Readonly<{ children: React.ReactNode; fallback: React.ReactNode }>) {
+  const { isSignedIn } = useUser();
+  if (!isSignedIn) return fallback;
   return <>{children}</>;
 }

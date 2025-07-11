@@ -7,6 +7,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Link from "next/link";
+import UserLoadingWrapper from "@/utils/UserLoadingWrapper";
 
 export default function Header() {
   return (
@@ -14,10 +15,12 @@ export default function Header() {
       <div className="flex items-center gap-10">
         <h3 className="text-2xl text-light-gray font-medium">JIRA Lite</h3>
         <div className="flex gap-10 font-medium">
-          <Link href="/dashboard">Dashboard</Link>
-          <Link href="/projects">Projects</Link>
-          <Link href="/issues">Issue</Link>
-          <Link href="/bugs">Bugs</Link>
+          <UserLoadingWrapper fallback={null}>
+            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/projects">Projects</Link>
+            <Link href="/issues">Issue</Link>
+            <Link href="/bugs">Bugs</Link>
+          </UserLoadingWrapper>
         </div>
       </div>
       <div className="flex gap-5">

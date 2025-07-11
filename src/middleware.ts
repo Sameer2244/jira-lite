@@ -20,3 +20,7 @@ export const config = {
     "/(api|trpc)(.*)",
   ],
 };
+
+// export default function middleware(req: any) {
+//   return NextResponse.next()
+// }

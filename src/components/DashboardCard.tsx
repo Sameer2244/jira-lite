@@ -5,7 +5,7 @@ import UserLoadingWrapper from "@/utils/UserLoadingWrapper";
 export default function DashboardCard() {
   return (
     <div className="">
-      <UserLoadingWrapper>
+      <UserLoadingWrapper fallback={<h1>Loading...</h1>}>
         <Greeting />
       </UserLoadingWrapper>
       {/* projects */}

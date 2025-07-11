@@ -1,6 +1,7 @@
 "use server";
 
 import clientPromise from "@/lib/mongodb";
+import { getAllProjects } from "@/lib/projects";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -10,11 +11,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const client = await clientPromise;
-    const db = client.db("jira-users");
-    const collection = db.collection("project-collection");
-    const data: unknown = await collection.find({}).toArray();
-    return NextResponse.json({ result: "success" });
+    // ep
+    const data = await getAllProjects();
+    return NextResponse.json({ result: data });
   } catch (e) {
     console.error(e);
     return NextResponse.json(

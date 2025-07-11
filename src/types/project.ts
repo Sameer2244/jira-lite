@@ -1,5 +1,3 @@
-import { Dayjs } from "dayjs";
-
 export interface ProjectType {
   _id: string;
   title: string;
