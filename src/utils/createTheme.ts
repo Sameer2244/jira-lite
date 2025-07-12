@@ -12,3 +12,16 @@ export const theme = createTheme({
     },
   },
 });
+
+export const userRandomBgColors = [
+  "#D9A299",
+  "#DCC5B2",
+  "#D9A299",
+  "#DCC5B2",
+  "#D9A299",
+  "#DCC5B2",
+  "#D9A299",
+  "#DCC5B2",
+  "#D9A299",
+  "#DCC5B2",
+];

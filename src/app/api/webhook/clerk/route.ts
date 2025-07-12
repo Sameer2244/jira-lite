@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
         last_name: body.data.last_name,
         profile_image_url: body.data.profile_image_url,
       };
+
       // only add if user is not already added
       const existingUser = await collection.findOne({
         _id: body.data.id,
@@ -25,12 +26,32 @@ export async function POST(req: NextRequest) {
       if (!existingUser) {
         await collection.insertOne(userToadded);
       }
-    }
-    if (body.type === "user.deleted") {
+    } else if (body.type === "user.deleted") {
       const client = await clientPromise;
       const db = client.db("jira-users");
       const collection = db.collection("user-collection");
       await collection.deleteOne({ _id: body.data.id });
+    } else if (body.type === "user.updated") {
+      const client = await clientPromise;
+      const db = client.db("jira-users");
+      const collection = db.collection("user-collection");
+      const userToadded = {
+        _id: body.data.id,
+        email: body.data.email_addresses[0].email_address,
+        first_name: body.data.first_name,
+        last_name: body.data.last_name,
+        profile_image_url: body.data.profile_image_url,
+      };
+      // only add if user is not already added
+      const existingUser = await collection.updateOne(
+        {
+          _id: body.data.id,
+        },
+        { $set: userToadded }
+      );
+      if (!existingUser) {
+        await collection.insertOne(userToadded);
+      }
     }
     console.log("Webhook received:", body);
     // Do something with the webhook data

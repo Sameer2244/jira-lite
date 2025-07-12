@@ -3,6 +3,8 @@
 import clientPromise from "@/lib/mongodb";
 import { getAllProjects } from "@/lib/projects";
 import { getAuth } from "@clerk/nextjs/server";
+import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const { title, description, status, dueDate } = await request.json();
+    const { _id, title, description, status, dueDate } = await request.json();
     const client = await clientPromise;
     const db = client.db("jira-users");
     const collection = db.collection("project-collection");
@@ -43,7 +45,15 @@ export async function POST(request: NextRequest) {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    const data: unknown = await collection.insertOne(projectData);
+    if (_id) {
+      await collection.updateOne(
+        { _id: new ObjectId(_id) },
+        { $set: projectData }
+      );
+    } else {
+      await collection.insertOne(projectData);
+    }
+    revalidatePath("/dashboard");
     return NextResponse.json(
       { message: "Project added successfully" },
       { status: 201 }

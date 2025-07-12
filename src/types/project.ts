@@ -10,6 +10,7 @@ export interface ProjectType {
   members: string[];
 }
 export interface ProjectFormType {
+  _id?: string;
   title: string;
   description: string;
   status: "Pending" | "Dev in progress" | "QA in progress" | "Deployed" | "";

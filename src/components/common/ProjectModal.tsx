@@ -32,12 +32,14 @@ const style = {
   p: 4,
 };
 
-export default function CustomModal({
+export default function ProjectModal({
   open,
   setOpen,
+  projectDataProps,
 }: Readonly<{
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  projectDataProps?: ProjectFormType;
 }>) {
   const handleAddProject = () => {
     if (
@@ -53,6 +55,7 @@ export default function CustomModal({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(projectData),
       });
@@ -60,10 +63,12 @@ export default function CustomModal({
   };
   const handleClose = () => setOpen(false);
   const [projectData, setProjectData] = React.useState<ProjectFormType>({
-    title: "",
-    description: "",
-    status: "",
-    dueDate: dayjs(Date.now()).format("YYYY-MM-DD"),
+    ...(projectDataProps?._id && { _id: projectDataProps?._id }),
+    title: projectDataProps?.title ?? "",
+    description: projectDataProps?.description ?? "",
+    status: projectDataProps?.status ?? "Pending",
+    dueDate:
+      projectDataProps?.dueDate ?? dayjs(Date.now()).format("YYYY-MM-DD"),
   });
   return (
     <div>

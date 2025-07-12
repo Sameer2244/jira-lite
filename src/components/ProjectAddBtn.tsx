@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import CustomModal from "./common/CustomModal";
+import ProjectModal from "./common/ProjectModal";
 import { Button } from "@mui/material";
 
 export default function ProjectAddBtn() {
@@ -11,7 +11,7 @@ export default function ProjectAddBtn() {
       <Button variant="contained" onClick={() => setOpen(true)}>
         + Add Project
       </Button>
-      <CustomModal open={open} setOpen={setOpen} />
+      <ProjectModal open={open} setOpen={setOpen} />
     </div>
   );
 }

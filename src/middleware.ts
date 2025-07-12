@@ -5,7 +5,11 @@ import { NextResponse } from "next/server";
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
   const routeMatcher = createRouteMatcher("/");
-  if (!userId && !routeMatcher(req)) {
+  if (
+    !userId &&
+    !routeMatcher(req) &&
+    !req.nextUrl.pathname.startsWith("/api/webhook/clerk")
+  ) {
     return NextResponse.redirect(new URL("/", req.url));
   } else if (userId && routeMatcher(req)) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
@@ -20,7 +24,3 @@ export const config = {
     "/(api|trpc)(.*)",
   ],
 };
-
-// export default function middleware(req: any) {
-//   return NextResponse.next()
-// }
