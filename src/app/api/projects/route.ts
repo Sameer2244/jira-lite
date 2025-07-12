@@ -53,7 +53,8 @@ export async function POST(request: NextRequest) {
     } else {
       await collection.insertOne(projectData);
     }
-    revalidatePath("/dashboard");
+    revalidatePath("/projects");
+    revalidatePath("/dashboard", "layout");
     return NextResponse.json(
       { message: "Project added successfully" },
       { status: 201 }

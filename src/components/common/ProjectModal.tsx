@@ -13,24 +13,9 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { ProjectFormType, ProjectType } from "@/types/project";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 800,
-  bgcolor: "background.paper",
-  borderRadius: "4px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "stretch",
-  gap: 3,
-  boxShadow: 24,
-  p: 4,
-};
+import { style } from "@/utils/modalStyle";
 
 export default function ProjectModal({
   open,

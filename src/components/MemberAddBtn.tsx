@@ -2,12 +2,13 @@
 
 import { Button } from "@mui/material";
 import React from "react";
-import ProjectModal from "./common/ProjectModal";
-import { ProjectFormType } from "@/types/project";
+import MemberAddModal from "./common/MemberAddModal";
+import { UserType } from "@/types/user";
 
-export default function EditProject({
-  project,
-}: Readonly<{ project: ProjectFormType }>) {
+export default function MemberAddBtn({
+  users,
+  projectId,
+}: Readonly<{ users: UserType[]; projectId: string }>) {
   const [openModal, setOpenModal] = React.useState(false);
   return (
     <div>
@@ -20,13 +21,14 @@ export default function EditProject({
         }}
         onClick={() => setOpenModal(true)}
       >
-        Edit
+        + Add Member
       </Button>
       {openModal && (
-        <ProjectModal
+        <MemberAddModal
           open={openModal}
           setOpen={setOpenModal}
-          projectDataProps={project}
+          users={users}
+          projectId={projectId}
         />
       )}
     </div>

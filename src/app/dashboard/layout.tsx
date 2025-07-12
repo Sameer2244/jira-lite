@@ -5,11 +5,9 @@ export default function DashboardLayout({
   project,
 }: Readonly<{ children: React.ReactNode; project: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>
-        {children}
-        {project}
-      </body>
-    </html>
+    <>
+      {children}
+      {project}
+    </>
   );
 }
